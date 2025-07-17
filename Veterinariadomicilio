@@ -1,0 +1,526 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Veterinaria Bienestar Animal</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Arial', sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        header {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .header-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1rem 0;
+        }
+
+        .logo {
+            font-size: 1.8rem;
+            font-weight: bold;
+            color: #4a90e2;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .logo::before {
+            content: "🐕";
+            font-size: 2rem;
+        }
+
+        nav ul {
+            display: flex;
+            list-style: none;
+            gap: 2rem;
+        }
+
+        nav a {
+            text-decoration: none;
+            color: #333;
+            font-weight: 500;
+            transition: color 0.3s ease;
+        }
+
+        nav a:hover {
+            color: #4a90e2;
+        }
+
+        .hero {
+            background: linear-gradient(rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.4)),
+                        url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 600"><rect fill="%23f0f8ff" width="1200" height="600"/><circle fill="%234a90e2" cx="200" cy="150" r="50" opacity="0.2"/><circle fill="%2376c7c0" cx="800" cy="300" r="70" opacity="0.2"/><circle fill="%23ff6b6b" cx="1000" cy="100" r="40" opacity="0.2"/></svg>');
+            background-size: cover;
+            background-position: center;
+            text-align: center;
+            padding: 6rem 0;
+            color: white;
+        }
+
+        .hero h1 {
+            font-size: 3.5rem;
+            margin-bottom: 1rem;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+        }
+
+        .hero p {
+            font-size: 1.2rem;
+            margin-bottom: 2rem;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .cta-button {
+            display: inline-block;
+            background: linear-gradient(45deg, #4a90e2, #76c7c0);
+            color: white;
+            padding: 1rem 2rem;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: bold;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(74, 144, 226, 0.3);
+        }
+
+        .cta-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(74, 144, 226, 0.4);
+        }
+
+        .services {
+            padding: 4rem 0;
+            background: white;
+        }
+
+        .services h2 {
+            text-align: center;
+            font-size: 2.5rem;
+            margin-bottom: 3rem;
+            color: #333;
+        }
+
+        .services-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+        }
+
+        .service-card {
+            background: white;
+            padding: 2rem;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            text-align: center;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .service-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.2);
+        }
+
+        .service-icon {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+        }
+
+        .service-card h3 {
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+            color: #4a90e2;
+        }
+
+        .appointment-section {
+            padding: 4rem 0;
+            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+        }
+
+        .appointment-form {
+            max-width: 600px;
+            margin: 0 auto;
+            background: white;
+            padding: 2rem;
+            border-radius: 20px;
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.1);
+        }
+
+        .appointment-form h2 {
+            text-align: center;
+            font-size: 2.5rem;
+            margin-bottom: 2rem;
+            color: #333;
+        }
+
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: bold;
+            color: #555;
+        }
+
+        .form-group input,
+        .form-group select,
+        .form-group textarea {
+            width: 100%;
+            padding: 1rem;
+            border: 2px solid #e0e0e0;
+            border-radius: 10px;
+            font-size: 1rem;
+            transition: border-color 0.3s ease;
+        }
+
+        .form-group input:focus,
+        .form-group select:focus,
+        .form-group textarea:focus {
+            outline: none;
+            border-color: #4a90e2;
+            box-shadow: 0 0 0 3px rgba(74, 144, 226, 0.1);
+        }
+
+        .form-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1rem;
+        }
+
+        .submit-btn {
+            width: 100%;
+            background: linear-gradient(45deg, #25d366, #128c7e);
+            color: white;
+            padding: 1rem;
+            border: none;
+            border-radius: 10px;
+            font-size: 1.1rem;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(37, 211, 102, 0.3);
+        }
+
+        .submit-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(37, 211, 102, 0.4);
+        }
+
+        .contact-info {
+            background: #333;
+            color: white;
+            padding: 3rem 0;
+            text-align: center;
+        }
+
+        .contact-info h2 {
+            font-size: 2rem;
+            margin-bottom: 2rem;
+        }
+
+        .contact-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+        }
+
+        .contact-item {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 1rem;
+            font-size: 1.1rem;
+        }
+
+        .contact-item i {
+            font-size: 1.5rem;
+            color: #4a90e2;
+        }
+
+        footer {
+            background: #222;
+            color: white;
+            text-align: center;
+            padding: 2rem 0;
+        }
+
+        @media (max-width: 768px) {
+            .hero h1 {
+                font-size: 2.5rem;
+            }
+            
+            .form-row {
+                grid-template-columns: 1fr;
+            }
+            
+            nav ul {
+                flex-direction: column;
+                gap: 1rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="container">
+            <div class="header-content">
+                <div class="logo">Veterinaria Bienestar Animal</div>
+                <nav>
+                    <ul>
+                        <li><a href="#inicio">Inicio</a></li>
+                        <li><a href="#servicios">Servicios</a></li>
+                        <li><a href="#citas">Citas</a></li>
+                        <li><a href="#contacto">Contacto</a></li>
+                    </ul>
+                </nav>
+            </div>
+        </div>
+    </header>
+
+    <section id="inicio" class="hero">
+        <div class="container">
+            <h1>¡Bienvenido a Veterinaria Bienestar Animal!</h1>
+            <p>Cuidamos la salud y bienestar de tus mascotas con amor, profesionalismo y la mejor tecnología veterinaria.</p>
+            <a href="#citas" class="cta-button">Agendar Cita a Domicilio en Cuatro Cañadas</a>
+        </div>
+    </section>
+
+    <section id="servicios" class="services">
+        <div class="container">
+            <h2>Nuestros Servicios</h2>
+            <div class="services-grid">
+                <div class="service-card">
+                    <div class="service-icon">💉</div>
+                    <h3>Vacunas</h3>
+                    <p>Protege a tu mascota con nuestro programa de vacunación completo.</p>
+                </div>
+                <div class="service-card">
+                    <div class="service-icon">🏥</div>
+                    <h3>Cirugías</h3>
+                    <p>Procedimientos quirúrgicos con tecnología de punta y el mejor cuidado.</p>
+                </div>
+                <div class="service-card">
+                    <div class="service-icon">💊</div>
+                    <h3>Tratamiento</h3>
+                    <p>Atención médica y tratamiento especializado para diversas afecciones.</p>
+                </div>
+                <div class="service-card">
+                    <div class="service-icon">⚕️</div>
+                    <h3>Desparasitación</h3>
+                    <p>Control y eliminación de parásitos internos y externos para la salud de tu mascota.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="citas" class="appointment-section">
+        <div class="container">
+            <div class="appointment-form">
+                <h2>Agendar Cita a Domicilio en Cuatro Cañadas</h2>
+                <form id="appointmentForm">
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="ownerName">Nombre del Propietario:</label>
+                            <input type="text" id="ownerName" name="ownerName" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="phone">Teléfono:</label>
+                            <input type="tel" id="phone" name="phone" required>
+                        </div>
+                    </div>
+                    
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="petName">Nombre de la Mascota:</label>
+                            <input type="text" id="petName" name="petName" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="petType">Tipo de Mascota:</label>
+                            <select id="petType" name="petType" required>
+                                <option value="">Seleccionar...</option>
+                                <option value="Perro">Perro</option>
+                                <option value="Gato">Gato</option>
+                                <option value="Ave">Ave</option>
+                                <option value="Conejo">Conejo</option>
+                                <option value="Otro">Otro</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="appointmentDate">Fecha Preferida:</label>
+                            <input type="date" id="appointmentDate" name="appointmentDate" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="appointmentTime">Hora Preferida:</label>
+                            <select id="appointmentTime" name="appointmentTime" required>
+                                <option value="">Seleccionar...</option>
+                                <option value="08:00">08:00 AM</option>
+                                <option value="09:00">09:00 AM</option>
+                                <option value="10:00">10:00 AM</option>
+                                <option value="11:00">11:00 AM</option>
+                                <option value="12:00">12:00 PM</option>
+                                <option value="13:00">01:00 PM</option>
+                                <option value="14:00">02:00 PM</option>
+                                <option value="15:00">03:00 PM</option>
+                                <option value="16:00">04:00 PM</option>
+                                <option value="17:00">05:00 PM</option>
+                                <option value="18:00">06:00 PM</option>
+                                <option value="19:00">07:00 PM</option>
+                                <option value="20:00">08:00 PM</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="service">Servicio Requerido:</label>
+                        <select id="service" name="service" required>
+                            <option value="">Seleccionar...</option>
+                            <option value="Vacunas">Vacunas</option>
+                            <option value="Cirugias">Cirugías</option>
+                            <option value="Tratamiento">Tratamiento</option>
+                            <option value="Desparasitación">Desparasitación</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="symptoms">Síntomas o Motivo de la Consulta:</label>
+                        <textarea id="symptoms" name="symptoms" rows="4" placeholder="Describe los síntomas o el motivo de la consulta..."></textarea>
+                    </div>
+
+                    <button type="submit" class="submit-btn">📱 Enviar Solicitud por WhatsApp</button>
+                </form>
+            </div>
+        </div>
+    </section>
+
+    <section id="contacto" class="contact-info">
+        <div class="container">
+            <h2>Información de Contacto</h2>
+            <div class="contact-grid">
+                <div class="contact-item">
+                    <i>📍</i>
+                    <span>Calle Principal #123, Centro</span>
+                </div>
+                <div class="contact-item">
+                    <i>📞</i>
+                    <span>+591 72174558</span>
+                </div>
+                <div class="contact-item">
+                    <i>📧</i>
+                    <span>info@veterinariabienestanimal.com</span>
+                </div>
+                <div class="contact-item">
+                    <i>⏰</i>
+                    <span>Sábado y Domingo: 8:00 AM - 8:00 PM</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <div class="container">
+            <p>&copy; 2025 Veterinaria Bienestar Animal. Todos los derechos reservados.</p>
+        </div>
+    </footer>
+
+    <script>
+        // Establecer fecha mínima como hoy
+        const today = new Date();
+        document.getElementById('appointmentDate').min = today.toISOString().split('T')[0];
+
+        // Manejar el cambio de fecha para validar el día de la semana
+        document.getElementById('appointmentDate').addEventListener('change', function() {
+            const selectedDate = new Date(this.value + 'T00:00:00'); // Adding T00:00:00 to avoid timezone issues
+            const dayOfWeek = selectedDate.getUTCDay(); // 0 for Sunday, 6 for Saturday
+
+            // Check if the day is Saturday (6) or Sunday (0)
+            if (dayOfWeek !== 0 && dayOfWeek !== 6) {
+                alert('La atención solo está disponible los sábados y domingos. Por favor, selecciona una fecha válida.');
+                this.value = ''; // Clear the input
+            }
+        });
+
+        // Manejar el envío del formulario
+        document.getElementById('appointmentForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            // Obtener los datos del formulario
+            const formData = new FormData(this);
+            const data = {};
+            formData.forEach((value, key) => {
+                data[key] = value;
+            });
+            
+            // Formatear el mensaje para WhatsApp
+            const message = `🏥 *SOLICITUD DE CITA - VETERINARIA BIENESTAR ANIMAL*
+
+👤 *Propietario:* ${data.ownerName}
+📞 *Teléfono:* ${data.phone}
+
+🐕 *Mascota:* ${data.petName}
+🐾 *Tipo:* ${data.petType}
+
+📅 *Fecha solicitada:* ${data.appointmentDate}
+⏰ *Hora solicitada:* ${data.appointmentTime}
+
+🩺 *Servicio:* ${data.service}
+
+📝 *Síntomas/Motivo:*
+${data.symptoms}
+
+---
+Por favor confirme la disponibilidad de la cita. ¡Gracias!`;
+            
+            // Abrir WhatsApp con tu número
+            const whatsappURL = `https://wa.me/59172174558?text=${encodeURIComponent(message)}`;
+            
+            // Abrir WhatsApp en una nueva ventana/pestaña
+            window.open(whatsappURL, '_blank');
+            
+            // Mostrar mensaje de confirmación
+            alert('¡Perfecto! Te estamos redirigiendo a WhatsApp para enviar tu solicitud de cita.');
+        });
+
+        // Navegación suave
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+    </script>
+</body>
+</html>
